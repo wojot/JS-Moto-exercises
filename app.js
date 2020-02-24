@@ -65,3 +65,45 @@ function camelCaseSplit(S) {
 console.log("Input string:");
 console.log("testCamelCase");
 console.log(camelCaseSplit("testCamelCase"));
+
+document.writeln(
+  "<p>3. Write a function that receives two sequences: A and B of integers and returns one sequence C. Sequence C should contain all elements from sequence A (maintaining the order) except those, that are present in sequence B p times, where p is a prime number.</p>"
+);
+
+const isPrime = num => {
+  for (let i = 2; i < num; i++) if (num % i === 0) return false;
+  return num > 1;
+};
+
+const checkPresenceNotPrimeTimes = (A, B) => {
+  const C = [];
+  A.forEach(currItem => {
+    const countPresence = B.filter(bItem => bItem === currItem).length;
+    if (isPrime(countPresence) == false) C.push(currItem);
+  });
+  return C;
+};
+
+document.writeln(
+  "<p>Testing [2, 3, 9, 2, 5, 1, 3, 7, 10] and [2, 1, 3, 4, 3, 10, 6, 6, 1, 7, 10, 10, 10] if equals to [2, 9, 2, 5, 7, 10]</p>"
+);
+
+if (
+  JSON.stringify(
+    checkPresenceNotPrimeTimes(
+      [2, 3, 9, 2, 5, 1, 3, 7, 10],
+      [2, 1, 3, 4, 3, 10, 6, 6, 1, 7, 10, 10, 10]
+    )
+  ) == JSON.stringify([2, 9, 2, 5, 7, 10])
+) {
+  document.writeln(
+    "<p style='width: 60px; background-color:green; color: white;'>Test passed</p>"
+  );
+}
+
+document.writeln(
+  "Conclusion: Weakest point of algorithm is iteration checking if number is prime, thus in case when checked number is very big, time complexity could be worse."
+);
+
+// Optimized app with lots of stuff description:
+// We are fetching data from API, if there is more than one source, we can wrap few fetch functions in one Promise.all to be sure we will fetch all of them. Obviously we have to handle error responses. After that we should create separated functional component (in the future will be quicker than class-component) with image and stuff surrounding it. In main component we can display components with image using lazy load (react.lazy or react-lazyload) to load them only if user scrolls view. Detailed data inside image component could be fetched when image component is in use. To make performance better, we can load blurred very small image placeholder and after that, lazy load should make it normal optimized for web image. All image components could be wrapped by React fragment <> for not adding additional node to DOM. We could also use React.memo, then React virtual DOM won’t render unchanged nodes. All data should be stored at Redux state for better performance and accessibility.
